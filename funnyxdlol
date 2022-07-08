@@ -7,7 +7,7 @@
 ██║ ╚████║╚██████╔╝╚██████╗╚██████╔╝██║ ╚═╝ ██║██╗╚███╔███╔╝   ██║   ██║     
 ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝ ╚══╝╚══╝    ╚═╝   ╚═╝     
 
-Update: 7/722 | Current Version: 2.8 (v2.8)
+Update: 7/722 | Current Version: 2.8.2 (v2.2.8.2)
 
 ]]--
 
@@ -119,7 +119,7 @@ Toggles.AutoStomp:OnChanged(function()
     AutoStomp = Toggles.AutoStomp.Value
 task.spawn(function()
     while true do
-        wait()
+        wait(0.1)
         if AutoStomp then
             stomp:FireServer()
         end
@@ -818,7 +818,7 @@ end)
 
 local ABGR = illegals:AddButton('Grenades (1500$)', function()
     local lastpos2 = p12.CFrame
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Grenades | $1500"].Head.CFrame
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Grenade | $1500"].Head.CFrame
     local poop2 = game:GetService("Workspace")["Grenade | $1500"].Head:FindFirstChild("ClickDetector")
     fireclickdetector(poop2)
     wait(.001)
@@ -827,8 +827,8 @@ end)
 
 local ABMV = Misc:AddButton('Vest (350$)', function()
     local lastpos2 = p12.CFrame
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Millitary Vest | $350"].Head.CFrame
-    local poop2 = game:GetService("Workspace")["Millitary Vest | $350"].Head:FindFirstChild("ClickDetector")
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Military Vest | $350"].Head.CFrame
+    local poop2 = game:GetService("Workspace")["Military Vest | $350"].Head:FindFirstChild("ClickDetector")
     fireclickdetector(poop2)
     wait(.001)
     p12.CFrame = lastpos2
@@ -1000,6 +1000,7 @@ game.Players.LocalPlayer:GetMouse().KeyDown:connect(function(key)
 end)
 
 local Misc1 = Tabs.Misc:AddLeftGroupbox('Auto-Farm')
+local Misc2 = Tabs.Misc:AddRightGroupbox('Misc Features')
 
 local ATM = Misc1:AddButton('ATMs', function()
     local cash = game:GetService("Workspace"):GetChildren()
@@ -1023,6 +1024,26 @@ local Register = Misc1:AddButton('Registers', function()
        fireclickdetector(clicky)
    end
 end
+end)
+
+local CashAF = Misc1:AddButton('Cash', function()
+    local cash = game:GetService("Workspace").Cash:GetChildren()
+    for i , v in pairs (cash) do
+        if v.Name == "Money" and v:WaitForChild("ClickDetector") then
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+       wait(0.2)
+       local clicky = v:WaitForChild("ClickDetector")
+       fireclickdetector(clicky)
+   end
+end
+end)
+
+local Reset = Misc2:AddButton('Reset Character', function()
+    game:GetService('Players').LocalPlayer.Character.Humanoid.Health = 0
+end)
+
+local ChatSpy = Misc2:AddButton('Chat Spy', function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dehoisted/Chat-Spy/main/source/main.lua"))()
 end)
 
 Library:SetWatermarkVisibility(true)
